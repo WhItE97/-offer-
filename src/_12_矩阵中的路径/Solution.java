@@ -16,7 +16,7 @@ public class Solution {
 		for(int i=0;i<board.length;i++) {
 			for(int j=0;j<board[0].length;j++) {
 				//遍历二维数组，以每一个点作起点进行dfs
-				if(dfs(board,i,j,word,0)) {//i,j为board坐标，第五个参数为当前匹配到String的第几个
+				if(dfs(board,i,j,word,0)) {//trick 1【以起点判断该条路径是否能走通，如果走通了，后续的就不需要执行了！
 					return true;
 				}
 			}
@@ -33,7 +33,7 @@ public class Solution {
 			return true;
 		}
 		//本轮匹配了,但未结束！
-		board[x][y] = ' ';//trick:防止一个位置被两次访问，能节省boolean visited[x][y]的空间
+		board[x][y] = ' ';//trick 2【设为空字符防止一个位置被两次访问（撤销选择的时候还原），能节省boolean visited[x][y]的空间
 		boolean res = dfs(board,x-1,y,word,k+1)||dfs(board,x+1,y,word,k+1)
 				||dfs(board,x,y-1,word,k+1)||dfs(board,x,y+1,word,k+1);
 		//撤销选择
