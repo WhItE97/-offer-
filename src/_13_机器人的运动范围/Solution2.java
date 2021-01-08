@@ -3,7 +3,7 @@ package _13_机器人的运动范围;
 public class Solution2 {
 /**
  * dfs思路：
- * 从[0,0]出发，每次只能上下左右移动一格
+ * 从[0,0]出发，每次【只能上下左右移动一格】!
  * 检查该格是否满足条件，满足则对其四周继续进行dfs（需要visited来判别某个节点是否已经访问过了，避免重复计算）
  */
 	public int movingCount(int m,int n,int k) {

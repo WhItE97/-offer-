@@ -11,7 +11,7 @@ public class bestStack {
  * CORE思想：保证其中一个队列是栈的顺序！
  * Step：
  * （假设保证q1是栈的正确顺序）
- * 1.每次offer都offer到q2，然后立即把q2的全部poll到q1，这样q1从对头按序出元素就是栈的顺序！
+ * 1.每次offer都offer到q2，然后立即把q2的全部poll到q1，这样q1从队尾按序出元素就是栈的顺序！
  * 2.pop等价于q1出队
  * 3.empty等价于q1判空
  * 4.top等价于q1取peek
