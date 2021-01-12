@@ -1,7 +1,7 @@
 package _16_数值的整数次方;
 
 import java.math.BigDecimal;
-
+//这是自己的递归写法..总还是不想用递归——>见Solution2
 /**
  * 题目：
  * 求x的n次方，不能用库函数，不需要考虑大数问题
@@ -33,7 +33,7 @@ public class Solution {
 				System.out.println("没有意义");
 				return 0.0;
 			}
-			return 1.0;
+			return 0.0;
 		}
 		if(x==1) {
 			return 1;
