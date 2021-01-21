@@ -9,7 +9,11 @@ public class Solution2 {
 	/**
 	 * BFS的队列实现（从上到下，每一行从左到右）
 	 * 记录：1.当前行剩余待打印节点数2.下一行总共需要打印的节点数 的同时！
-	 * ->记录行数，每到奇数行，就先压栈出栈->再把出栈后的元素序列add进list
+	 * ->记录行数，每到奇数行，就把反序后的元素序列add进list【没必要这样..整复杂了】
+	 * 直接调用Collections.reverse()即可反序（如下）【这种没写，以后复习再写】
+	 * for(int i=1;i<result.size();i+=2){
+     * 	Collections.reverse(result.get(i));
+	 * }
 	 */
 	public List<List<Integer>> levelOrder(TreeNode root){
 		//base
