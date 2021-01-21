@@ -1,7 +1,5 @@
 package _03_数组中重复的数字;
 
-import java.util.HashMap;
-
 public class test {
 	public static void main(String[] args) {
 		Solution s =  new Solution();

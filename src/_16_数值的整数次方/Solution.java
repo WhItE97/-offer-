@@ -1,6 +1,5 @@
 package _16_数值的整数次方;
 
-import java.math.BigDecimal;
 //这是自己的递归写法..总还是不想用递归——>见Solution2
 /**
  * 题目：

@@ -1,6 +1,5 @@
 package _32_3_从上到下打印二叉树3;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class test {
