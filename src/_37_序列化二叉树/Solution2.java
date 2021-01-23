@@ -50,6 +50,7 @@ public class Solution2 {
     	return deserialize(nodes);
     }
     int i = 0;//【HHHHDP】用于标识nodes数组中下标！必须设置为全局变量！不然后序node.left和right迭代中i无法正确更迭
+    //【这里deserialize的递归不需要考虑i越界nodes.length->因为只有非空的节点才会有左右儿子，树的形状一开始就确定了！】
     public TreeNode deserialize(String[] nodes) {
     	if(nodes[i].equals("#")) {
     		//说明是null节点
