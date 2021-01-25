@@ -28,7 +28,7 @@ public class Solution2 {
 			}
 			arr[left] = arr[right];
 			//再从左边开始移动，找到一个比pivot大的插在右边
-			while(arr[left]<=pivot&&left<right) {//【HDP 后半段判断别漏..】
+			while(arr[left]<pivot&&left<right) {//【HDP 后半段判断别漏..】
 				left++;
 			}
 			arr[right] = arr[left];//【如果left right撞了，那么这一句就更没问题了！】
