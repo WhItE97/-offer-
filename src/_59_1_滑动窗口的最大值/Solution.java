@@ -1,5 +1,6 @@
 package _59_1_滑动窗口的最大值;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -17,7 +18,7 @@ public class Solution {
 	 * 2.T09实现了两个栈实现队列——>这里的[滑动窗口~队列]，也就可以用两个栈实现，而栈又可以实现O(1)取max，所以加上维护栈的操作，能够实现O(N)
 	 * 【以上思路相当于一次做了两道题..所以面试时不推荐,比较费时（实际我写了半天也没写出来..辅助栈都要3or4个..）】
 	 * 
-	 * 【滑动窗口问题】解决方法：【单调队列】
+	 * 【滑动窗口问题】解决方法：【单调队列】【13ms 80%】
 	 * 1.分析：[窗口 对应的是 双端队列——>单调队列deque]
 	 * 2.for单调[队列(所以deque是先进先出的，每次max在队头(出队的那边)找)]deque：
 	 * （1）deque内仅包含窗口内的元素（如果该轮窗口移除了nums[i-1]元素，则deque中的nums[i-1]也必须移除！）
@@ -28,47 +29,49 @@ public class Solution {
 	 * 		2）5来的时候大于deque中的1，所以删除1，把5插进来
 	 * 		3）3来的时候虽然小于deque中的5，但是3可能在5出去后称为榜首（所以说deque【非严格递减】），所以把3插到deque的5后
 	 * 		4）2来的时候，1出去了，同理2可能在5和3都出去后称为榜首，符合deque非严格递减，所以把2插到3后...
-	 * 3.特殊点
-	 * （1
 	 */
 	public int[] maxSlidingWindow(int[] nums, int k) {
+		//base case
+		if(nums.length<k||nums.length==0) {
+			return new int[] {};
+		}
 		Deque<Integer> deque = new LinkedList<>();
-		int l = 0;
-		int r = 0;
-		//【HDP.在一个数入队后，怎么和deque中所有元素进行比较..】
+		//【HDP.在一个数入队后，怎么和deque中元素挨个比较..——>Deque实现的Queue有peekLast()!】
 		//【TRICK.可以分解为[窗口未形成]和[窗口已形成]2situs来讨论，更容易分析】
 		//1.窗口未形成
 		for(int i=0;i<k;i++) {
-//			//新进来的元素需要和队尾元素循环比较，把比它小的全部踢出去
-//			if(deque.peekLast()==null) {
-//				deque.offer(i);//【ATT.插入的不是元素值！是其数组下标！才方便后续判断是否到达尾部】
-//			}
-//			else {
-//				//把deque中在它前面的比他小的全删掉
-//				while(nums[deque.peekLast()]<nums[i]) {
-//					deque.removeLast();
-//				}
-//				deque.offer(i);
-//			}
-			while(deque.peekLast()!=null&&nums[deque.peekLast()]<nums[i]) {
+			while(deque.peekLast()!=null&&nums[deque.peekLast()]<nums[i]) {//【ATT.相等元素也是要插进来的！】
 				deque.removeLast();
 			}
 			deque.offer(i);
 		}
-		int size = deque.size();
-		for(int i=0;i<size;i++) {
-			System.out.println("deque["+i+"]="+deque.poll());
+		//2.窗口已经形成，每进来一个，deque中就可能！会出去一个
+		int[] res = new int[nums.length-k+1];
+		int index = 0;
+		for(int i=k;i<nums.length;i++) {
+			//2.1.进来先保存当前窗口max，写入res数组
+			res[index] = nums[deque.peek()];
+			index++;
+			//2.2.然后检查第一个是不是窗口临界值，如果刚好滑出去，那就要删掉它
+			if(i-deque.peekFirst()==k) {
+				deque.removeFirst();
+			}
+			//2.3.进行插入前的非严格递减deque的维护工作
+			while(!deque.isEmpty()&&nums[deque.peekLast()]<nums[i]) {
+				deque.removeLast();
+			}
+			//2.4.插入i
+			deque.offer(i);
 		}
-		return new int[] {};
+		//3.最后一轮的窗口值还没插入res
+		res[index] = nums[deque.peek()];
+		return res;
     }
 	
 	public static void main(String[] args) {
-		int[] nums = new int[] {1,5,2,4,6};
-		Deque<Integer> deque = new LinkedList<>();
-		deque.offer(1);
-		deque.offer(3);
-		deque.offer(2);
+		int[] nums = new int[] {};
 		Solution s = new Solution();
-		s.maxSlidingWindow(nums, 3);
+		int[] res = s.maxSlidingWindow(nums, 3);
+		System.out.println(Arrays.toString(res));
 	}
 }
