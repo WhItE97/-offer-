@@ -15,17 +15,13 @@ public class Solution2 {
 		}
 		int min = prices[0];
 		int max = 0;
-		int[] dp = new int[prices.length];
-		dp[0] = 0;
+//		int[] dp = new int[prices.length];
+//		dp[0] = 0;
 		for(int i=1;i<prices.length;i++) {
-			dp[i] = Math.max(dp[i-1], prices[i]-min);
+//			dp[i] = Math.max(dp[i-1], prices[i]-min);
+			max = Math.max(max, prices[i]-min);
 			min = Math.min(min, prices[i]);
-			max = Math.max(max, dp[i]);
 		}
 		return max;
     }
-	public static void main(String[] args) {
-		
-	}
-
 }
